@@ -1,0 +1,174 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Contents</h6>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <a [routerLink]="['/content']" class="btn btn-sm btn-neutral">Add new content</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-7">
+                        <h3 class="mb-0">Filters</h3>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/contents']" [queryParams]="{page: 1, mood_id: selectedMoodID, category_id: selectedcontentCategoryID, type: selectedcontentType, counsellor_id: counsellorID, training: training, status: status}">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group" *ngIf="moodsResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Mood</label>
+                            <form>
+                                <select [(ngModel)]="selectedMoodID" name="moods" class="form-control" data-toggle="select">
+                                    <option *ngFor="let mood of moodsResponse.moods" [ngValue]="mood.id">{{ mood.title }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group" *ngIf="contentCategoryResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Content Category</label>
+                            <form>
+                                <select [(ngModel)]="selectedcontentCategoryID" name="moods" class="form-control" data-toggle="select">
+                                    <option *ngFor="let content_category of contentCategoryResponse.content_categories" [ngValue]="content_category.id">{{ content_category.category }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Content Type</label>
+                            <form>
+                                <select [(ngModel)]="selectedcontentType" name="contentType" class="form-control" data-toggle="select">
+                                    <option value="1">Video</option>
+                                    <option value="2">Audio</option>
+                                    <option value="3">Article</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Counsellor/Therapist ID</label>
+                            <input [(ngModel)]="counsellorID" type="text" name="counsellorID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Training</label>
+                            <form>
+                                <select [(ngModel)]="training" name="training" class="form-control" data-toggle="select">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Status</label>
+                            <form>
+                                <select [(ngModel)]="status" name="status" class="form-control" data-toggle="select">
+                                    <option value="1">Active</option>
+                                    <option value="2">Deleted</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Photo</th>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Mood</th>
+                            <th>Training</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="response != null">
+                        <tr *ngFor="let content of response.contents">
+                            <td>
+                                <img style="width: 20px; height: 20px;" [src]="response.media_url + content.photo" />
+                            </td>
+                            <td class="table-user">
+                                <b>{{ content.title }}</b>
+                            </td>
+                            <td>
+                                <span class="text-muted">
+                                    <a *ngIf="content.type != '3'" [href]="response.media_url + content.content" target="_blank">Link</a>
+                                    <a *ngIf="content.type == '3'" [href]="content.content" target="_blank">Link</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span *ngIf="content.type == '1'" class="text-muted">Video</span>
+                                <span *ngIf="content.type == '2'" class="text-muted">Audio</span>
+                                <span *ngIf="content.type == '3'" class="text-muted">Article</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ contentCategoriesMap.get(content.category_id) }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ moodsMap.get(content.mood_id) }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ content.training == '1' ? 'Yes': 'No' }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ content.status == '1' ? 'Active': 'Deleted' }}</span>
+                            </td>
+                            <td class="table-actions">
+                                <fa-icon [icon]="faPen " [routerLink]="['/content']" [queryParams]="{content_id: content.content_id}"></fa-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item" *ngIf="page > 1">
+                            <a class="page-link" [routerLink]="['/contents']" [queryParams]="{page: (page-1), mood_id: selectedMoodID, category_id: selectedcontentCategoryID, type: selectedcontentType, counsellor_id: counsellorID, training: training, status: status}">
+                                <fa-icon [icon]="faAngleLeft "></fa-icon>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngIf="response != null && response.contents.length > 0">
+                            <a class="page-link" [routerLink]="['/contents']" [queryParams]="{page: (page+1), mood_id: selectedMoodID, category_id: selectedcontentCategoryID, type: selectedcontentType, counsellor_id: counsellorID, training: training, status: status}">
+                                <fa-icon [icon]="faAngleRight "></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

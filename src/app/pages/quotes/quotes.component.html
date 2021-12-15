@@ -1,0 +1,95 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Motivational Quotes</h6>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <a [routerLink]="['/quote']" class="btn btn-sm btn-neutral">Add new Motivational Quote</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-7">
+                        <h3 class="mb-0">Filters</h3>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/quotes']" [queryParams]="{page: 1, mood_id: selectedMoodID}">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group" *ngIf="moodsResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Mood</label>
+                            <form>
+                                <select [(ngModel)]="selectedMoodID" name="moods" class="form-control" data-toggle="select">
+                                    <option *ngFor="let mood of moodsResponse.moods" [ngValue]="mood.id">{{ mood.title }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Quote</th>
+                            <th>Mood</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="response != null">
+                        <tr *ngFor="let quote of response.quotes">
+                            <td class="table-user">
+                                <b>{{ quote.quote }}</b>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ moodsMap.get(quote.mood_id) }}</span>
+                            </td>
+                            <td class="table-actions">
+                                <fa-icon [icon]="faTrash " (click)="deleteSwal.fire()"></fa-icon>
+
+                                <swal #deleteSwal title="Delete quote?" text="This cannot be undone" icon="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="deleteQuote(quote.id)">
+                                </swal>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item" *ngIf="page > 1">
+                            <a class="page-link" [routerLink]="['/quotes']" [queryParams]="{page: (page-1), mood_id: selectedMoodID}">
+                                <fa-icon [icon]="faAngleLeft "></fa-icon>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngIf="response != null && response.quotes.length > 0">
+                            <a class="page-link" [routerLink]="['/quotes']" [queryParams]="{page: (page+1), mood_id: selectedMoodID}">
+                                <fa-icon [icon]="faAngleRight "></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

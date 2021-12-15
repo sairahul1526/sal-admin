@@ -1,0 +1,59 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Reports</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Start Date</label>
+                            <input [(ngModel)]="startBy" type="date" name="startBy" class="form-control" id="example4cols1Input" placeholder="2021-10-21">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">End Date</label>
+                            <input [(ngModel)]="endBy" type="date" name="endBy" class="form-control" id="example4cols1Input" placeholder="2021-10-21">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Report Type</label>
+                            <form>
+                                <select [(ngModel)]="selectedReportID" name="moods" class="form-control" data-toggle="select">
+                                    <option *ngFor="let report of reports" [ngValue]="report.id">{{ report.title }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2"></label>
+                            <div class="text-right">
+                                <button class="btn btn-primary" type="button" (click)="downloadReport()">Download Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

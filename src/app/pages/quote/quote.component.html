@@ -1,0 +1,52 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Add Motivational Quote</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Quote</label>
+                            <textarea [(ngModel)]="quote" name="quote" placeholder="Life is short. Live the fullest" class="form-control" id="exampleFormControlTextarea2" rows="3" resize="none"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" *ngIf="moodsResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Mood</label>
+                            <form>
+                                <select [(ngModel)]="moodID" name="moods" class="form-control" data-toggle="select">
+                                    <option *ngFor="let mood of moodsResponse.moods" [ngValue]="mood.id">{{ mood.title }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-example justify-content-md-center">
+            <div class="col col-lg-3">
+                <button class="btn btn-primary" type="button" (click)="postQuote()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,136 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Add Motivational Quote</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Promo Code</label>
+                            <input [(ngModel)]="promoCode" type="text" name="promoCode" class="form-control" id="example4cols1Input" placeholder="NEW50">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Discount</label>
+                            <input [(ngModel)]="discount" type="number" name="discount" class="form-control" id="example4cols1Input" placeholder="500">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Discount Type</label>
+                            <form>
+                                <select [(ngModel)]="type" name="type" class="form-control" data-toggle="select">
+                                    <option value="1">Flat</option>
+                                    <option value="2">Percent</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Minimum Value of Order</label>
+                            <input [(ngModel)]="minimumOrderValue" type="number" name="minimumOrderValue" class="form-control" id="example4cols1Input" placeholder="100">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3" *ngIf="type == 2">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Maximum Discount Amount</label>
+                            <input [(ngModel)]="maximumDiscountValue" type="number" name="maximumDiscountValue" class="form-control" id="example4cols1Input" placeholder="NEW50">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Valid for Order</label>
+                            <input type="number" [(ngModel)]="validForOrder" name="validForOrder" class="form-control" id="example4cols1Input" placeholder="1st Order (0 means applicable for all orders)">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Coupon Applicable For</label>
+                            <form>
+                                <select [(ngModel)]="orderType" name="orderType" class="form-control" data-toggle="select">
+                                    <option value="1">Appointment</option>
+                                    <option value="2">SAL Cafe</option>
+                                    <option value="0">Appointment/SAL Cafe</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Coupon Applicable For</label>
+                            <form>
+                                <select [(ngModel)]="couponApplicableFor" name="couponApplicableFor" class="form-control" data-toggle="select">
+                                    <option value="1">Counsellor</option>
+                                    <option value="4">Therapist</option>
+                                    <option value="3">Client</option>
+                                    <option value="0">All</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3" *ngIf="couponApplicableFor > 0">
+                        <div class="form-group">
+                            <label *ngIf="couponApplicableFor == 1" class="form-control-label" for="example4cols1Input">Counsellor ID</label>
+                            <label *ngIf="couponApplicableFor == 4" class="form-control-label" for="example4cols1Input">Therapist ID</label>
+                            <label *ngIf="couponApplicableFor == 3" class="form-control-label" for="example4cols1Input">Client ID</label>
+                            <input [(ngModel)]="personID" type="text" name="personID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Start Date</label>
+                            <input [(ngModel)]="startBy" type="date" name="startBy" class="form-control" id="example4cols1Input" placeholder="2021-10-21">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">End Date</label>
+                            <input [(ngModel)]="endBy" type="date" name="endBy" class="form-control" id="example4cols1Input" placeholder="2021-10-21">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Status</label>
+                            <form>
+                                <select [(ngModel)]="status" name="status" class="form-control" data-toggle="select">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-example justify-content-md-center">
+            <div class="col col-lg-3">
+                <button class="btn btn-primary" type="button" (click)="couponID.length > 0 ? updateCoupon() : postCoupon()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</div>

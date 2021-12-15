@@ -1,0 +1,127 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Promo Codes</h6>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <a [routerLink]="['/coupon']" class="btn btn-sm btn-neutral">Add new Promo Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-7">
+                        <h3 class="mb-0">Filters</h3>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/coupons']" [queryParams]="{page: 1, active: active}">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">State</label>
+                            <form>
+                                <select [(ngModel)]="active" name="moods" class="form-control" data-toggle="select">
+                                    <option value="1">Actively Running Promo Codes</option>
+                                    <option value="0">Rest all Promo Codes</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Promo Code</th>
+                            <th>Discount</th>
+                            <th>Minimum Value of Order</th>
+                            <th>Maximum Discount Amount</th>
+                            <th>Valid for Order</th>
+                            <th>Discount Type</th>
+                            <th>Coupon Applicable For</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="response != null">
+                        <tr *ngFor="let coupon of response.coupons">
+                            <td class="table-user">
+                                <b>{{ coupon.coupon_code }}</b>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ coupon.type == '1' ? '₹ ' : '' }}{{ coupon.discount }}{{ coupon.type == '2' ? '% ' : '' }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">₹ {{ coupon.minimum_order_value }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ coupon.type == '2' ? '₹ ' + coupon.maximum_discount_value : '' }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ coupon.valid_for_order == '0' ? 'All Orders' : (coupon.valid_for_order |  ordinal) + ' Order' }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ coupon.type == '1' ? 'Flat' : 'Percent' }}</span>
+                            </td>
+                            <td>
+                                <span *ngIf="coupon.order_type == '1'" class="text-muted">Appointment</span>
+                                <span *ngIf="coupon.order_type == '2'" class="text-muted">SAL Cafe</span>
+                                <span *ngIf="coupon.order_type == '0'" class="text-muted">Appointment/SAL Cafe</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ coupon.start_by | dateTransform: 'Do MMM @ h:mm a' }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ coupon.end_by | dateTransform: 'Do MMM @ h:mm a' }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ coupon.status == '1' ? 'Active' : 'Inactive' }}</span>
+                            </td>
+                            <td class="table-actions">
+                                <fa-icon [icon]="faPen " [routerLink]="['/coupon']" [queryParams]="{id: coupon.id}"></fa-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item" *ngIf="page > 1">
+                            <a class="page-link" [routerLink]="['/coupons']" [queryParams]="{page: (page-1), active: active}">
+                                <fa-icon [icon]="faAngleLeft "></fa-icon>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngIf="response != null && response.coupons.length > 0">
+                            <a class="page-link" [routerLink]="['/coupons']" [queryParams]="{page: (page+1), active: active}">
+                                <fa-icon [icon]="faAngleRight "></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

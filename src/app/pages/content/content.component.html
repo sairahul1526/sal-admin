@@ -1,0 +1,143 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Add Content</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Title</label>
+                            <input [(ngModel)]="title" type="text" name="title" class="form-control" id="example4cols1Input" placeholder="Healthy Boundaries">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea1">Description</label>
+                            <textarea [(ngModel)]="description" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Healthy Boundaries by Poonam"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Photo</label>
+                            <div class="custom-file">
+                                <input type="file" (change)="onPhotoSelected($event)" class="custom-file-input" id="photo" lang="en">
+                                <label class="custom-file-label" for="photo"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Background Photo</label>
+                            <div class="custom-file">
+                                <input type="file" (change)="onBackgroundPhotoSelected($event)" class="custom-file-input" id="background_photo" lang="en">
+                                <label class="custom-file-label" for="background_photo"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Content</label>
+                            <div class="custom-file">
+                                <input type="file" (change)="onContentSelected($event)" class="custom-file-input" id="content" lang="en">
+                                <label class="custom-file-label" for="content"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group" *ngIf="moodsResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Mood</label>
+                            <form>
+                                <select [(ngModel)]="selectedMoodID" name="moods" class="form-control" data-toggle="select">
+                                    <option *ngFor="let mood of moodsResponse.moods" [ngValue]="mood.id">{{ mood.title }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group" *ngIf="contentCategoryResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Content Category</label>
+                            <form>
+                                <select [(ngModel)]="selectedcontentCategoryID" name="moods" class="form-control" data-toggle="select">
+                                    <option *ngFor="let content_category of contentCategoryResponse.content_categories" [ngValue]="content_category.id">{{ content_category.category }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Content Type</label>
+                            <form>
+                                <select [(ngModel)]="selectedcontentType" name="contentType" class="form-control" data-toggle="select">
+                                    <option value="1">Video</option>
+                                    <option value="2">Audio</option>
+                                    <option value="3">Article</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Counsellor/Therapist ID</label>
+                            <input [(ngModel)]="counsellorID" type="text" name="counsellorID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Training</label>
+                            <form>
+                                <select [(ngModel)]="training" name="training" class="form-control" data-toggle="select">
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3" *ngIf="contentID.length > 0">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Status</label>
+                            <form>
+                                <select [(ngModel)]="status" name="status" class="form-control" data-toggle="select">
+                                    <option value="1">Active</option>
+                                    <option value="2">Deleted</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-example justify-content-md-center">
+            <div class="col col-lg-3">
+                <button class="btn btn-primary" type="button" (click)="contentID.length > 0 ? updateContent() : postContent()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</div>

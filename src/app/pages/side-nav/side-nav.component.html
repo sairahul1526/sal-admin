@@ -1,0 +1,100 @@
+<!-- Sidenav -->
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+        <div class="navbar-inner">
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <h6 class="navbar-heading p-0 text-muted">
+                    <span class="docs-normal">Hello Sai</span>
+                </h6>
+                <hr class="my-3">
+                <!-- Navigation -->
+                <ul class="navbar-nav mb-md-3">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/coupons']">
+                            <i class="ni ni-spaceship"></i>
+                            <span class="nav-link-text">Promo Codes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/sign-in']">
+                            <i class="ni ni-palette"></i>
+                            <span class="nav-link-text">Notifications</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/contents']">
+                            <i class="ni ni-ui-04"></i>
+                            <span class="nav-link-text">Content</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/quotes']">
+                            <i class="ni ni-chart-pie-35"></i>
+                            <span class="nav-link-text">Motivational Quotes</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <!-- Navigation -->
+                <ul class="navbar-nav mb-md-3">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/clients']">
+                            <i class="ni ni-spaceship"></i>
+                            <span class="nav-link-text">Clients</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/counsellors']">
+                            <i class="ni ni-palette"></i>
+                            <span class="nav-link-text">Counsellors</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/sign-in']">
+                            <i class="ni ni-ui-04"></i>
+                            <span class="nav-link-text">Listeners</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/sign-in']">
+                            <i class="ni ni-chart-pie-35"></i>
+                            <span class="nav-link-text">Therapists</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <!-- Navigation -->
+                <ul class="navbar-nav mb-md-3">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/appointments']">
+                            <i class="ni ni-spaceship"></i>
+                            <span class="nav-link-text">Appointments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/events']">
+                            <i class="ni ni-palette"></i>
+                            <span class="nav-link-text">SAL Cafe</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <!-- Navigation -->
+                <ul class="navbar-nav mb-md-3">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/reports']">
+                            <i class="ni ni-ui-04"></i>
+                            <span class="nav-link-text">Reports</span>
+                        </a>
+                        <a class="nav-link" [routerLink]="['/sign-in']">
+                            <i class="ni ni-ui-04"></i>
+                            <span class="nav-link-text" style="color: red;">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<router-outlet></router-outlet>

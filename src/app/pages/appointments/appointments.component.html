@@ -1,0 +1,121 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Appointments</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-7">
+                        <h3 class="mb-0">Filters</h3>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/appointments']" [queryParams]="{page: 1, state: state, client_id: clientID, counsellor_id: counsellorID}">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">State</label>
+                            <form>
+                                <select [(ngModel)]="state" name="state" class="form-control" data-toggle="select">
+                                    <option value="1">To be Started</option>
+                                    <option value="2">Started</option>
+                                    <option value="3">Completed</option>
+                                    <option value="4">Cancelled</option>
+                                    <option value="5">No Show</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="form-control-label" for="example4cols1Input">Client ID</label>
+                                <input [(ngModel)]="clientID" type="text" name="clientID" class="form-control" id="example4cols1Input" placeholder="a8hq8wj">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="form-control-label" for="example4cols1Input">Counsellor ID</label>
+                                <input [(ngModel)]="counsellorID" type="text" name="counsellorID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Client</th>
+                            <th>Counsellor</th>
+                            <th>Date &amp; Time</th>
+                            <th>Times rescheduled</th>
+                            <th>Status</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="response != null">
+                        <tr *ngFor="let appointment of response.appointments">
+                            <td class="table-user">
+                                <b>{{ appointment.client_id }}</b>
+                            </td>
+                            <td>
+                                <b>{{ appointment.counsellor_id }}</b>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ appointment.start_by | dateTransform: 'Do MMM @ h:mm a' }}</span>
+                            </td>
+                            <td>
+                                <b>{{ appointment.time_rescheduled }}</b>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ appointment.status == '1' ? 'Active' : 'Inactive' }}</span>
+                            </td>
+                            <td>
+                                <b>{{ appointment.rating_comments }}</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item" *ngIf="page > 1">
+                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page-1)}">
+                                <fa-icon [icon]="faAngleLeft "></fa-icon>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngIf="response != null && response.appointment.length > 0">
+                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page+1)}">
+                                <fa-icon [icon]="faAngleRight "></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

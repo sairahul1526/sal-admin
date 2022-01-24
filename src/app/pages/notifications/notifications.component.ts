@@ -5,18 +5,19 @@ import { faAngleRight, faAngleLeft, faPen } from '@fortawesome/free-solid-svg-ic
 import { UtilityService  } from 'src/app/services/utility.service';
 
 @Component({
-  selector: 'app-coupons',
-  templateUrl: './coupons.component.html',
-  styleUrls: ['./coupons.component.scss']
+  selector: 'app-notifications',
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.scss']
 })
-export class CouponsComponent implements OnInit {
+export class NotificationsComponent implements OnInit {
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
   faPen = faPen;
 
   response: any;
   page = 1;
-  active: string = '';
+  type: string = '';
+  userType: string = '';
   
   loader = true;
   
@@ -27,23 +28,26 @@ export class CouponsComponent implements OnInit {
       if (params.page !== undefined) {
         this.page = Number(params.page);
       }
-      if (params.active !== undefined) {
-        this.active = params.active;
+      if (params.type !== undefined) {
+        this.type = params.type;
       }
-      this.getCoupons(this.page);
+      if (params.user_type !== undefined) {
+        this.userType = params.user_type;
+      }
+      this.getNotifications(this.page);
     });
   }
 
 
-  getCoupons(page: number) {
+  getNotifications(page: number) {
     this.loader = true;
     this.utilityService.checkUserLogin();
     this.page = page;
-    this.apiClient.getCoupons(page.toString(), this.active).subscribe((response: any) => {
+    this.apiClient.getNotifications(page.toString(), this.type, this.userType).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
         this.utilityService.refreshToken();
         this.utilityService.wait(3000);
-        this.getCoupons(page);
+        this.getNotifications(page);
         return;
       }
       this.loader = false;

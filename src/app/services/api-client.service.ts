@@ -15,11 +15,16 @@ export class ApiClientService {
 
   private CONTENT_CATEGORY = '/content-category';
   private APPOINTMENT = '/admin/appointment';
+  private CLIENT = '/admin/client';
+  private COUNSELLOR = '/admin/counsellor';
+  private LISTENER = '/admin/listener';
+  private THERAPIST = '/admin/therapist';
   private CONTENT = '/admin/content';
   private CONTENT_UPLOAD = '/content/upload';
   private COUPON = '/admin/coupon';
   private QUOTE = '/admin/quote';
   private REPORT = '/admin/report';
+  private NOTIFICATION = '/admin/notification';
   private MOOD = '/mood';
 
   private retryCount = 3;
@@ -213,5 +218,190 @@ export class ApiClientService {
     .set('client_id', clientID)
     .set('counsellor_id', counsellorID);
     return this.httpClient.get(this.REST_API_SERVER + this.APPOINTMENT, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getClients(page: string, name: string, phone: string, email: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('page', page)
+    .set('name', name)
+    .set('phone', phone)
+    .set('email', email)
+    .set('status', status);
+    return this.httpClient.get(this.REST_API_SERVER + this.CLIENT, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getClient(clientID: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('client_id', clientID);
+    return this.httpClient.get(this.REST_API_SERVER + this.CLIENT, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  updateClient(clientID: string, firstName: string, lastName: string, phone: string, email: string, dob: string,
+    gender: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('client_id', clientID);
+    return this.httpClient.put(this.REST_API_SERVER + this.CLIENT, {
+      first_name: firstName,
+      last_name: lastName,
+      phone: phone,
+      email: email,
+      date_of_birth: dob,
+      gender: gender,
+      status: status,
+    }, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getCounsellors(page: string, name: string, phone: string, email: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('page', page)
+    .set('name', name)
+    .set('phone', phone)
+    .set('email', email)
+    .set('status', status);
+    return this.httpClient.get(this.REST_API_SERVER + this.COUNSELLOR, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getCounsellor(counsellorID: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('counsellor_id', counsellorID);
+    return this.httpClient.get(this.REST_API_SERVER + this.COUNSELLOR, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  updateCounsellor(counsellorID: string, firstName: string, lastName: string, phone: string, email: string,
+    gender: string, price: string, price3: string, price5: string, education: string, experience: string, about: string, payoutPercentage: string, payeeName: string, bankAccountNo: string, ifsc: string, branchName: string, bankName: string, bankAccountType: string, pan: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('counsellor_id', counsellorID);
+    return this.httpClient.put(this.REST_API_SERVER + this.COUNSELLOR, {
+      first_name: firstName,
+      last_name: lastName,
+      phone: phone,
+      email: email,
+      gender: gender,
+      price: price.toString(),
+      price_3: price3.toString(),
+      price_5: price5.toString(),
+      education: education,
+      experience: experience,
+      about: about,
+      payout_percentage: payoutPercentage.toString(),
+      payee_name: payeeName,
+      bank_account_no: bankAccountNo,
+      ifsc: ifsc,
+      branch_name: branchName,
+      bank_name: bankName,
+      bank_account_type: bankAccountType,
+      pan: pan,
+      status: status,
+    }, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getTherapists(page: string, name: string, phone: string, email: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('page', page)
+    .set('name', name)
+    .set('phone', phone)
+    .set('email', email)
+    .set('status', status);
+    return this.httpClient.get(this.REST_API_SERVER + this.THERAPIST, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getTherapist(therapistID: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('therapist_id', therapistID);
+    return this.httpClient.get(this.REST_API_SERVER + this.THERAPIST, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  updateTherapist(therapistID: string, firstName: string, lastName: string, phone: string, email: string,
+    gender: string, price: string, price3: string, price5: string, education: string, experience: string, about: string, payoutPercentage: string, payeeName: string, bankAccountNo: string, ifsc: string, branchName: string, bankName: string, bankAccountType: string, pan: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('therapist_id', therapistID);
+    return this.httpClient.put(this.REST_API_SERVER + this.THERAPIST, {
+      first_name: firstName,
+      last_name: lastName,
+      phone: phone,
+      email: email,
+      gender: gender,
+      price: price.toString(),
+      price_3: price3.toString(),
+      price_5: price5.toString(),
+      education: education,
+      experience: experience,
+      about: about,
+      payout_percentage: payoutPercentage.toString(),
+      payee_name: payeeName,
+      bank_account_no: bankAccountNo,
+      ifsc: ifsc,
+      branch_name: branchName,
+      bank_name: bankName,
+      bank_account_type: bankAccountType,
+      pan: pan,
+      status: status,
+    }, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+
+  getListeners(page: string, name: string, phone: string, email: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('page', page)
+    .set('name', name)
+    .set('phone', phone)
+    .set('email', email)
+    .set('status', status);
+    return this.httpClient.get(this.REST_API_SERVER + this.LISTENER, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getListener(listenerID: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('listener_id', listenerID);
+    return this.httpClient.get(this.REST_API_SERVER + this.LISTENER, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  updateListener(listenerID: string, firstName: string, lastName: string, phone: string, email: string,
+    gender: string, occupation: string, experience: string, about: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('listener_id', listenerID);
+    return this.httpClient.put(this.REST_API_SERVER + this.LISTENER, {
+      first_name: firstName,
+      last_name: lastName,
+      phone: phone,
+      email: email,
+      gender: gender,
+      occupation: occupation,
+      experience: experience,
+      about: about,
+      status: status,
+    }, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getNotifications(page: string, type: string, userType: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('page', page)
+    .set('type', type)
+    .set('user_type', userType)
+    return this.httpClient.get(this.REST_API_SERVER + this.NOTIFICATION, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  postNotification(title: string, body: string, userIDs: string, type: string, userType: string): any {
+    const headers = this.getHeaders();
+    return this.httpClient.post(this.REST_API_SERVER + this.NOTIFICATION, {
+      title: title,
+      body: body,
+      user_ids: userIDs,
+      type: type,
+      user_type: userType,
+    }, { headers }).pipe(retry(this.retryCount));
   }
 }

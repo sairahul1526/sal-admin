@@ -6,7 +6,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Counsellors</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">Therapists</h6>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                         <h3 class="mb-0">Filters</h3>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/counsellors']" [queryParams]="{page: 1, name: name, phone: phone, email: email, status: status}">Filter</button>
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/therapists']" [queryParams]="{page: 1, name: name, phone: phone, email: email, status: status}">Filter</button>
                     </div>
                 </div>
             </div>
@@ -82,39 +82,39 @@
                         </tr>
                     </thead>
                     <tbody *ngIf="response != null">
-                        <tr *ngFor="let counsellor of response.counsellors" [routerLink]="['/appointments']" [queryParams]="{counsellor_id: counsellor.counsellor_id}">
+                        <tr *ngFor="let therapist of response.therapists" [routerLink]="['/appointments']" [queryParams]="{counsellor_id: therapist.therapist_id}">
                             <td>
-                                <img *ngIf="counsellor.photo != ''" style="width: 20px; height: 20px;" [src]="response.media_url + counsellor.photo" />
+                                <img *ngIf="therapist.photo != ''" style="width: 20px; height: 20px;" [src]="response.media_url + therapist.photo" />
                             </td>
                             <td class="table-user">
-                                <b>{{ counsellor.first_name }} {{ counsellor.last_name }}</b>
+                                <b>{{ therapist.first_name }} {{ therapist.last_name }}</b>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.phone }}</span>
+                                <span class="text-muted">{{ therapist.phone }}</span>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.email }}</span>
+                                <span class="text-muted">{{ therapist.email }}</span>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.average_rating }} ({{ counsellor.total_rating }})</span>
+                                <span class="text-muted">{{ therapist.average_rating }} ({{ therapist.total_rating }})</span>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.gender }}</span>
+                                <span class="text-muted">{{ therapist.gender }}</span>
                             </td>
                             <td class="table-user">
-                                <b>{{ counsellor.price }}</b>
+                                <b>{{ therapist.price }}</b>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.payout_percentage }}</span>
+                                <span class="text-muted">{{ therapist.payout_percentage }}</span>
                             </td>
                             <td>
-                                <span *ngIf="counsellor.status == '0'" class="text-muted">Not Approved</span>
-                                <span *ngIf="counsellor.status == '1'" class="text-muted">Active</span>
-                                <span *ngIf="counsellor.status == '2'" class="text-muted">Deleted</span>
-                                <span *ngIf="counsellor.status == '3'" class="text-muted">Blocked</span>
+                                <span *ngIf="therapist.status == '0'" class="text-muted">Not Approved</span>
+                                <span *ngIf="therapist.status == '1'" class="text-muted">Active</span>
+                                <span *ngIf="therapist.status == '2'" class="text-muted">Deleted</span>
+                                <span *ngIf="therapist.status == '3'" class="text-muted">Blocked</span>
                             </td>
                             <td class="table-actions">
-                                <fa-icon [icon]="faPen " [routerLink]="['/counsellor']" [queryParams]="{counsellor_id: counsellor.counsellor_id}"></fa-icon>
+                                <fa-icon [icon]="faPen " [routerLink]="['/therapist']" [queryParams]="{therapist_id: therapist.therapist_id}"></fa-icon>
                             </td>
                         </tr>
                     </tbody>
@@ -125,12 +125,12 @@
                 <nav aria-label="...">
                     <ul class="pagination justify-content-end mb-0">
                         <li class="page-item" *ngIf="page > 1">
-                            <a class="page-link" [routerLink]="['/counsellors']" [queryParams]="{page: (page-1), name: name, phone: phone, email: email, status: status}">
+                            <a class="page-link" [routerLink]="['/therapists']" [queryParams]="{page: (page-1), name: name, phone: phone, email: email, status: status}">
                                 <fa-icon [icon]="faAngleLeft "></fa-icon>
                             </a>
                         </li>
-                        <li class="page-item" *ngIf="response != null && response.counsellors.length > 0">
-                            <a class="page-link" [routerLink]="['/counsellors']" [queryParams]="{page: (page+1), name: name, phone: phone, email: email, status: status}">
+                        <li class="page-item" *ngIf="response != null && response.therapists.length > 0">
+                            <a class="page-link" [routerLink]="['/therapists']" [queryParams]="{page: (page+1), name: name, phone: phone, email: email, status: status}">
                                 <fa-icon [icon]="faAngleRight "></fa-icon>
                             </a>
                         </li>

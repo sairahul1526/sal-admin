@@ -1,0 +1,83 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Add Notification</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Title</label>
+                            <input [(ngModel)]="title" type="title" name="promoCode" class="form-control" id="example4cols1Input" placeholder="Crazy new offer">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Body</label>
+                            <textarea [(ngModel)]="body" name="body" placeholder="Life is short. Live the fullest" class="form-control" id="exampleFormControlTextarea2" rows="3" resize="none"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">User Type</label>
+                            <form>
+                                <select [(ngModel)]="userType" name="userType" class="form-control" data-toggle="select">
+                                    <option value="1">Counsellors</option>
+                                    <option value="2">Listeners</option>
+                                    <option value="3">Clients</option>
+                                    <option value="4">Therapists</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Type</label>
+                            <form>
+                                <select [(ngModel)]="type" name="type" class="form-control" data-toggle="select">
+                                    <option value="1">Send to All</option>
+                                    <option value="2">Send to specified users</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6" *ngIf="type == '2'">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">User IDs (comma separated)</label>
+                            <input [(ngModel)]="userIDs" type="userIDs" name="promoCode" class="form-control" id="example4cols1Input" placeholder="ahs8a,as9qw,qw9wqk">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-example justify-content-md-center">
+            <div class="col col-lg-3">
+                <button class="btn btn-primary" type="button" (click)="postNotification()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
+</div>

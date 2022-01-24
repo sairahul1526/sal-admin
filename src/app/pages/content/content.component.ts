@@ -33,6 +33,8 @@ export class ContentComponent implements OnInit {
   backgroundPhoto: string = '';
   content: string = '';
 
+  loader = true;
+  
   constructor(private router: Router, private route: ActivatedRoute, private apiClient: ApiClientService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
@@ -41,12 +43,13 @@ export class ContentComponent implements OnInit {
       if (params.content_id !== undefined) {
         this.contentID = params.content_id;
       }
-      this.getContent();
     });
   }
 
   getMoods() {
+    this.loader = true;
     this.apiClient.getMoods().subscribe((response: any) => {
+      this.loader = false;
       this.moodsResponse = response;
       if (response !== null && response.meta.status === '200') {
         response.moods.forEach((mood: any) => {
@@ -58,7 +61,9 @@ export class ContentComponent implements OnInit {
   }
 
   getContentCateories() {
+    this.loader = true;
     this.apiClient.getContentCateories().subscribe((response: any) => {
+      this.loader = false;
       this.contentCategoryResponse = response;
       if (response !== null && response.meta.status === '200') {
         response.content_categories.forEach((contentCategory: any) => {
@@ -73,6 +78,7 @@ export class ContentComponent implements OnInit {
     if (this.contentID.length == 0) {
       return;
     }
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.getContent(this.contentID).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -81,6 +87,7 @@ export class ContentComponent implements OnInit {
         this.getContent();
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         if (response.contents.length == 0) {
           return;
@@ -100,6 +107,7 @@ export class ContentComponent implements OnInit {
   }
 
   updateContent(): any {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.updateContent(this.contentID, this.counsellorID, this.title, this.description, this.photo, this.backgroundPhoto, this.content, this.selectedcontentType, this.getRedirection(this.selectedcontentType), this.selectedcontentCategoryID, this.training, this.selectedMoodID, this.status).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -108,6 +116,7 @@ export class ContentComponent implements OnInit {
         this.updateContent();
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.router.navigate(['/contents']);
       }
@@ -115,6 +124,7 @@ export class ContentComponent implements OnInit {
   }
 
   postContent(): any {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.postContent(this.counsellorID, this.title, this.description, this.photo, this.backgroundPhoto, this.content, this.selectedcontentType, this.getRedirection(this.selectedcontentType), this.selectedcontentCategoryID, this.training, this.selectedMoodID).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -123,6 +133,7 @@ export class ContentComponent implements OnInit {
         this.postContent();
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.router.navigate(['/contents']);
       }
@@ -133,6 +144,7 @@ export class ContentComponent implements OnInit {
     if (event.target.files.length == 0) {
       return;
     }
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.uploadContent(event.target.files[0]).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -141,6 +153,7 @@ export class ContentComponent implements OnInit {
         this.onPhotoSelected(event);
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.photo = response.file;
       }
@@ -151,6 +164,7 @@ export class ContentComponent implements OnInit {
     if (event.target.files.length == 0) {
       return;
     }
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.uploadContent(event.target.files[0]).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -159,6 +173,7 @@ export class ContentComponent implements OnInit {
         this.onBackgroundPhotoSelected(event);
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.backgroundPhoto = response.file;
       }
@@ -169,6 +184,7 @@ export class ContentComponent implements OnInit {
     if (event.target.files.length == 0) {
       return;
     }
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.uploadContent(event.target.files[0]).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -177,6 +193,7 @@ export class ContentComponent implements OnInit {
         this.onContentSelected(event);
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.content = response.file;
       }

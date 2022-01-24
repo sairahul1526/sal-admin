@@ -1,0 +1,200 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Update Counsellor</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">First Name</label>
+                            <input [(ngModel)]="firstName" type="text" name="firstName" class="form-control" id="example4cols1Input" placeholder="Shubham">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Last Name</label>
+                            <input [(ngModel)]="lastName" type="text" name="lastName" class="form-control" id="example4cols1Input" placeholder="Rathore">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Phone</label>
+                            <input [(ngModel)]="phone" type="text" name="phone" class="form-control" id="example4cols1Input" placeholder="919133331111">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Email</label>
+                            <input [(ngModel)]="email" type="text" name="email" class="form-control" id="example4cols1Input" placeholder="rajeev@gamil.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-2">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Gender</label>
+                            <form>
+                                <select [(ngModel)]="gender" name="gender" class="form-control" data-toggle="select">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Status</label>
+                            <form>
+                                <select [(ngModel)]="status" name="status" class="form-control" data-toggle="select">
+                                    <option value="1">Active</option>
+                                    <option value="2">Deleted</option>
+                                    <option value="3">Blocked</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea1">Education</label>
+                            <textarea [(ngModel)]="education" name="education" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="B.E. Computer Science"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea1">Experience</label>
+                            <textarea [(ngModel)]="experience" name="experience" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Developer @ Mirco"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea1">About</label>
+                            <textarea [(ngModel)]="about" name="about" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Book, Forum etc"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Price for 1</label>
+                            <input [(ngModel)]="price" type="number" name="price" class="form-control" id="example4cols1Input" placeholder="500">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Price for 3</label>
+                            <input [(ngModel)]="price3" type="number" name="price3" class="form-control" id="example4cols1Input" placeholder="1400">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Price for 5</label>
+                            <input [(ngModel)]="price5" type="number" name="price5" class="form-control" id="example4cols1Input" placeholder="2000">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Payout %</label>
+                            <input [(ngModel)]="payoutPercentage" type="number" name="payoutPercentage" class="form-control" id="example4cols1Input" placeholder="2000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Payee Name</label>
+                            <input [(ngModel)]="payeeName" type="text" name="payeeName" class="form-control" id="example4cols1Input" placeholder="Shubham">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Bank Account No</label>
+                            <input [(ngModel)]="bankAccountNo" type="text" name="bankAccountNo" class="form-control" id="example4cols1Input" placeholder="Rathore">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">PAN</label>
+                            <input [(ngModel)]="pan" type="text" name="pan" class="form-control" id="example4cols1Input" placeholder="919133331111">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Bank Name</label>
+                            <input [(ngModel)]="bankName" type="text" name="bankName" class="form-control" id="example4cols1Input" placeholder="Shubham">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Bank Account Type</label>
+                            <input [(ngModel)]="bankAccountType" type="text" name="bankAccountType" class="form-control" id="example4cols1Input" placeholder="Rathore">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">IFCS</label>
+                            <input [(ngModel)]="ifsc" type="text" name="ifsc" class="form-control" id="example4cols1Input" placeholder="919133331111">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Branch Name</label>
+                            <input [(ngModel)]="branchName" type="text" name="branchName" class="form-control" id="example4cols1Input" placeholder="rajeev@gamil.com">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-example justify-content-md-center">
+            <div class="col col-lg-3">
+                <button class="btn btn-primary" type="button" (click)="updateCounsellor()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
+</div>

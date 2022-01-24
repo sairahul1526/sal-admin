@@ -24,6 +24,14 @@ import { ContentsComponent } from './pages/contents/contents.component';
 import { ContentComponent } from './pages/content/content.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
 import { EventsComponent } from './pages/events/events.component';
+import { ClientComponent } from './pages/client/client.component';
+import { CounsellorComponent } from './pages/counsellor/counsellor.component';
+import { TherapistComponent } from './pages/therapist/therapist.component';
+import { TherapistsComponent } from './pages/therapists/therapists.component';
+import { ListenersComponent } from './pages/listeners/listeners.component';
+import { ListenerComponent } from './pages/listener/listener.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { NotificationComponent } from './pages/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +50,15 @@ import { EventsComponent } from './pages/events/events.component';
     ContentsComponent,
     ContentComponent,
     AppointmentsComponent,
-    EventsComponent
+    EventsComponent,
+    ClientComponent,
+    CounsellorComponent,
+    TherapistComponent,
+    TherapistsComponent,
+    ListenersComponent,
+    ListenerComponent,
+    NotificationsComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

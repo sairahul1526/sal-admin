@@ -26,6 +26,8 @@ export class CouponComponent implements OnInit {
   endBy: string = '';
   status: string = '1';
   
+  loader = true;
+
   constructor(private router: Router, private route: ActivatedRoute, private apiClient: ApiClientService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class CouponComponent implements OnInit {
   }
 
   getCoupon() {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.getCoupon(this.couponID).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -46,6 +49,7 @@ export class CouponComponent implements OnInit {
         this.getCoupon();
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         if (response.coupons.length > 0) {
           const coupon = response.coupons[0]
@@ -77,6 +81,7 @@ export class CouponComponent implements OnInit {
   }
 
   postCoupon() {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     let clienID = '';
     let counsellorID = '';
@@ -101,6 +106,7 @@ export class CouponComponent implements OnInit {
         this.postCoupon();
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.router.navigate(['/coupons']);
       }
@@ -108,6 +114,7 @@ export class CouponComponent implements OnInit {
   }
 
   updateCoupon() {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     let clienID = '';
     let counsellorID = '';
@@ -132,6 +139,7 @@ export class CouponComponent implements OnInit {
         this.postCoupon();
         return;
       }
+      this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.router.navigate(['/coupons']);
       }

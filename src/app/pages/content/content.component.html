@@ -6,7 +6,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Add Content</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">{{ contentID == '' ? 'Add Content' : 'Update Content' }}</h6>
                     </div>
                 </div>
             </div>
@@ -53,13 +53,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="selectedcontentType != '3'">
                         <div class="form-group">
                             <label class="form-control-label" for="example4cols1Input">Content</label>
                             <div class="custom-file">
                                 <input type="file" (change)="onContentSelected($event)" class="custom-file-input" id="content" lang="en">
                                 <label class="custom-file-label" for="content"></label>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" *ngIf="selectedcontentType == '3'">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Article Link</label>
+                            <input [(ngModel)]="content" type="text" name="content" class="form-control" id="example4cols1Input" placeholder="Healthy Boundaries">
                         </div>
                     </div>
                 </div>
@@ -140,4 +146,8 @@
         </div>
     </div>
 
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
 </div>

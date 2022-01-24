@@ -6,7 +6,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Counsellors</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">Listeners</h6>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                         <h3 class="mb-0">Filters</h3>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/counsellors']" [queryParams]="{page: 1, name: name, phone: phone, email: email, status: status}">Filter</button>
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/listeners']" [queryParams]="{page: 1, name: name, phone: phone, email: email, status: status}">Filter</button>
                     </div>
                 </div>
             </div>
@@ -75,46 +75,38 @@
                             <th>Email</th>
                             <th>Rating</th>
                             <th>Gender</th>
-                            <th>Price</th>
-                            <th>Payout %</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody *ngIf="response != null">
-                        <tr *ngFor="let counsellor of response.counsellors" [routerLink]="['/appointments']" [queryParams]="{counsellor_id: counsellor.counsellor_id}">
+                        <tr *ngFor="let listener of response.listeners" [routerLink]="['/appointments']" [queryParams]="{counsellor_id: listener.listener_id}">
                             <td>
-                                <img *ngIf="counsellor.photo != ''" style="width: 20px; height: 20px;" [src]="response.media_url + counsellor.photo" />
+                                <img *ngIf="listener.photo != ''" style="width: 20px; height: 20px;" [src]="response.media_url + listener.photo" />
                             </td>
                             <td class="table-user">
-                                <b>{{ counsellor.first_name }} {{ counsellor.last_name }}</b>
+                                <b>{{ listener.first_name }} {{ listener.last_name }}</b>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.phone }}</span>
+                                <span class="text-muted">{{ listener.phone }}</span>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.email }}</span>
+                                <span class="text-muted">{{ listener.email }}</span>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.average_rating }} ({{ counsellor.total_rating }})</span>
+                                <span class="text-muted">{{ listener.average_rating }} ({{ listener.total_rating }})</span>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.gender }}</span>
-                            </td>
-                            <td class="table-user">
-                                <b>{{ counsellor.price }}</b>
+                                <span class="text-muted">{{ listener.gender }}</span>
                             </td>
                             <td>
-                                <span class="text-muted">{{ counsellor.payout_percentage }}</span>
-                            </td>
-                            <td>
-                                <span *ngIf="counsellor.status == '0'" class="text-muted">Not Approved</span>
-                                <span *ngIf="counsellor.status == '1'" class="text-muted">Active</span>
-                                <span *ngIf="counsellor.status == '2'" class="text-muted">Deleted</span>
-                                <span *ngIf="counsellor.status == '3'" class="text-muted">Blocked</span>
+                                <span *ngIf="listener.status == '0'" class="text-muted">Not Approved</span>
+                                <span *ngIf="listener.status == '1'" class="text-muted">Active</span>
+                                <span *ngIf="listener.status == '2'" class="text-muted">Deleted</span>
+                                <span *ngIf="listener.status == '3'" class="text-muted">Blocked</span>
                             </td>
                             <td class="table-actions">
-                                <fa-icon [icon]="faPen " [routerLink]="['/counsellor']" [queryParams]="{counsellor_id: counsellor.counsellor_id}"></fa-icon>
+                                <fa-icon [icon]="faPen " [routerLink]="['/listener']" [queryParams]="{listener_id: listener.listener_id}"></fa-icon>
                             </td>
                         </tr>
                     </tbody>
@@ -125,12 +117,12 @@
                 <nav aria-label="...">
                     <ul class="pagination justify-content-end mb-0">
                         <li class="page-item" *ngIf="page > 1">
-                            <a class="page-link" [routerLink]="['/counsellors']" [queryParams]="{page: (page-1), name: name, phone: phone, email: email, status: status}">
+                            <a class="page-link" [routerLink]="['/listeners']" [queryParams]="{page: (page-1), name: name, phone: phone, email: email, status: status}">
                                 <fa-icon [icon]="faAngleLeft "></fa-icon>
                             </a>
                         </li>
-                        <li class="page-item" *ngIf="response != null && response.counsellors.length > 0">
-                            <a class="page-link" [routerLink]="['/counsellors']" [queryParams]="{page: (page+1), name: name, phone: phone, email: email, status: status}">
+                        <li class="page-item" *ngIf="response != null && response.listeners.length > 0">
+                            <a class="page-link" [routerLink]="['/listeners']" [queryParams]="{page: (page+1), name: name, phone: phone, email: email, status: status}">
                                 <fa-icon [icon]="faAngleRight "></fa-icon>
                             </a>
                         </li>

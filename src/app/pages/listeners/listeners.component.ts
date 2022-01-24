@@ -1,22 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiClientService  } from 'src/app/services/api-client.service';
-import { faAngleRight, faAngleLeft, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService  } from 'src/app/services/utility.service';
 
+
 @Component({
-  selector: 'app-coupons',
-  templateUrl: './coupons.component.html',
-  styleUrls: ['./coupons.component.scss']
+  selector: 'app-listeners',
+  templateUrl: './listeners.component.html',
+  styleUrls: ['./listeners.component.scss']
 })
-export class CouponsComponent implements OnInit {
+export class ListenersComponent implements OnInit {
+  faPen = faPen;
   faAngleRight = faAngleRight;
   faAngleLeft = faAngleLeft;
-  faPen = faPen;
+
+  name = '';
+  phone = '';
+  email = '';
+  status = '';
 
   response: any;
   page = 1;
-  active: string = '';
   
   loader = true;
   
@@ -27,23 +32,31 @@ export class CouponsComponent implements OnInit {
       if (params.page !== undefined) {
         this.page = Number(params.page);
       }
-      if (params.active !== undefined) {
-        this.active = params.active;
+      if (params.name !== undefined) {
+        this.name = params.name;
       }
-      this.getCoupons(this.page);
+      if (params.phone !== undefined) {
+        this.phone = params.phone;
+      }
+      if (params.email !== undefined) {
+        this.email = params.email;
+      }
+      if (params.status !== undefined) {
+        this.status = params.status;
+      }
+      this.getListeners(this.page);
     });
   }
 
-
-  getCoupons(page: number) {
+  getListeners(page: number) {
     this.loader = true;
     this.utilityService.checkUserLogin();
     this.page = page;
-    this.apiClient.getCoupons(page.toString(), this.active).subscribe((response: any) => {
+    this.apiClient.getListeners(this.page.toString(), this.name, this.phone, this.email, this.status).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
         this.utilityService.refreshToken();
         this.utilityService.wait(3000);
-        this.getCoupons(page);
+        this.getListeners(page);
         return;
       }
       this.loader = false;
@@ -52,4 +65,5 @@ export class CouponsComponent implements OnInit {
       }
     });
   }
+
 }

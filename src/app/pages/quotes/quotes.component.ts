@@ -20,6 +20,8 @@ export class QuotesComponent implements OnInit {
   response: any;
   page = 1;
   
+  loader = true;
+  
   constructor(private route: ActivatedRoute, private apiClient: ApiClientService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
@@ -49,6 +51,7 @@ export class QuotesComponent implements OnInit {
 
 
   getQuotes(page: number) {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.page = page;
     this.apiClient.getQuotes(page.toString(), this.selectedMoodID).subscribe((response: any) => {
@@ -58,6 +61,7 @@ export class QuotesComponent implements OnInit {
         this.getQuotes(page);
         return;
       }
+      this.loader = false;
       this.response = response;
       if (response !== null && response.meta.status === '200') {
       }
@@ -65,6 +69,7 @@ export class QuotesComponent implements OnInit {
   }
 
   deleteQuote(id: string) {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.deleteQuote(id).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
@@ -73,6 +78,7 @@ export class QuotesComponent implements OnInit {
         this.deleteQuote(id);
         return;
       }
+      this.loader = false;
       this.response = response;
       if (response !== null && response.meta.status === '200') {
         this.page = 1;

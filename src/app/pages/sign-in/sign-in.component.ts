@@ -14,6 +14,8 @@ export class SignInComponent implements OnInit {
 
   response: any;
   
+  loader = false;
+
   constructor(private router: Router, private apiClient: ApiClientService) { }
 
   ngOnInit(): void {
@@ -21,7 +23,9 @@ export class SignInComponent implements OnInit {
 
 
   login(): void {
+    this.loader = true;
     this.apiClient.login(this.username, this.password).subscribe((response: any) => {
+      this.loader = false;
       this.response = response;
       if (response !== null && response.meta.status === '200') {
         localStorage.setItem('refresh_token', response.refresh_token);

@@ -78,22 +78,26 @@
                     <tbody *ngIf="response != null">
                         <tr *ngFor="let appointment of response.appointments">
                             <td class="table-user">
-                                <b>{{ appointment.client_id }}</b>
+                                <b>{{ response.clients[appointment.client_id].first_name }} {{ response.clients[appointment.client_id].last_name }}</b>
                             </td>
                             <td>
-                                <b>{{ appointment.counsellor_id }}</b>
+                                <b>{{ response.counsellors[appointment.counsellor_id].first_name }} {{ response.counsellors[appointment.counsellor_id].last_name }}</b>
                             </td>
                             <td>
-                                <span class="text-muted">{{ appointment.start_by | dateTransform: 'Do MMM @ h:mm a' }}</span>
+                                <span class="text-muted">{{ appointment.date | dateTransform: 'Do MMM' }} @ {{ appointment.time }}  {{ convertSlot(appointment.time) | dateTransform: 'h:mm a' }}</span>
                             </td>
                             <td>
-                                <b>{{ appointment.time_rescheduled }}</b>
+                                <b>{{ appointment.times_rescheduled }}</b>
                             </td>
                             <td>
-                                <span class="text-muted">{{ appointment.status == '1' ? 'Active' : 'Inactive' }}</span>
+                                <span *ngIf="appointment.status == '1'" class="text-muted">To be Started</span>
+                                <span *ngIf="appointment.status == '2'" class="text-muted">Started</span>
+                                <span *ngIf="appointment.status == '3'" class="text-muted">Completed</span>
+                                <span *ngIf="appointment.status == '4'" class="text-muted">Cancelled</span>
+                                <span *ngIf="appointment.status == '5'" class="text-muted">No Show</span>
                             </td>
                             <td>
-                                <b>{{ appointment.rating_comments }}</b>
+                                <span class="text-muted">{{ appointment.status == '4' ? appointment.cancellation_reason : appointment.rating_comment }}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -104,12 +108,12 @@
                 <nav aria-label="...">
                     <ul class="pagination justify-content-end mb-0">
                         <li class="page-item" *ngIf="page > 1">
-                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page-1)}">
+                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page-1), state: state, client_id: clientID, counsellor_id: counsellorID}">
                                 <fa-icon [icon]="faAngleLeft "></fa-icon>
                             </a>
                         </li>
-                        <li class="page-item" *ngIf="response != null && response.appointment.length > 0">
-                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page+1)}">
+                        <li class="page-item" *ngIf="response != null && response.appointments.length > 0">
+                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page+1), state: state, client_id: clientID, counsellor_id: counsellorID}">
                                 <fa-icon [icon]="faAngleRight "></fa-icon>
                             </a>
                         </li>
@@ -118,4 +122,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
 </div>

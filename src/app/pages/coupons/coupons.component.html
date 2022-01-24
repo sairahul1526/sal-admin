@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <label class="form-control-label" for="exampleFormControlTextarea2">State</label>
                             <form>
-                                <select [(ngModel)]="active" name="moods" class="form-control" data-toggle="select">
+                                <select [(ngModel)]="active" name="active" class="form-control" data-toggle="select">
                                     <option value="1">Actively Running Promo Codes</option>
                                     <option value="0">Rest all Promo Codes</option>
                                 </select>
@@ -124,4 +124,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
 </div>

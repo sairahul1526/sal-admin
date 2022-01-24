@@ -32,6 +32,8 @@ export class ContentsComponent implements OnInit {
   response: any;
   page = 1;
   
+  loader = true;
+  
   constructor(private route: ActivatedRoute, private apiClient: ApiClientService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
@@ -86,6 +88,7 @@ export class ContentsComponent implements OnInit {
   }
 
   getContents(page: number) {
+    this.loader = true;
     this.utilityService.checkUserLogin();
     this.page = page;
     this.apiClient.getContents(this.page.toString(), this.selectedMoodID, this.selectedcontentCategoryID, this.selectedcontentType, this.counsellorID,
@@ -96,6 +99,7 @@ export class ContentsComponent implements OnInit {
         this.getContents(page);
         return;
       }
+      this.loader = false;
       this.response = response;
       if (response !== null && response.meta.status === '200') {
       }

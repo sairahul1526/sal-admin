@@ -32,6 +32,7 @@ import { ListenersComponent } from './pages/listeners/listeners.component';
 import { ListenerComponent } from './pages/listener/listener.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { NotificationComponent } from './pages/notification/notification.component';
+import { EventComponent } from './pages/event/event.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { NotificationComponent } from './pages/notification/notification.compone
     ListenersComponent,
     ListenerComponent,
     NotificationsComponent,
-    NotificationComponent
+    NotificationComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,

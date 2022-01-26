@@ -73,6 +73,7 @@
                             <th>Times rescheduled</th>
                             <th>Status</th>
                             <th>Remarks</th>
+                            <th>Refund</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="response != null">
@@ -84,7 +85,7 @@
                                 <b>{{ response.counsellors[appointment.counsellor_id].first_name }} {{ response.counsellors[appointment.counsellor_id].last_name }}</b>
                             </td>
                             <td>
-                                <span class="text-muted">{{ appointment.date | dateTransform: 'Do MMM' }} @ {{ appointment.time }}  {{ convertSlot(appointment.time) | dateTransform: 'h:mm a' }}</span>
+                                <span class="text-muted">{{ appointment.date | dateTransform: 'Do MMM' }} @ {{ convertSlot(appointment.time) | dateTransform: 'h:mm a' }}</span>
                             </td>
                             <td>
                                 <b>{{ appointment.times_rescheduled }}</b>
@@ -98,6 +99,9 @@
                             </td>
                             <td>
                                 <span class="text-muted">{{ appointment.status == '4' ? appointment.cancellation_reason : appointment.rating_comment }}</span>
+                            </td>
+                            <td class="table-actions">
+                                <button  type="button" class="btn btn-primary btn-sm"  [swal]="{ title: 'Refund for appointment', input: 'text', showCancelButton: true}" (confirm)="refundAppointment(appointment.appointment_id, $event)">Go</button>
                             </td>
                         </tr>
                     </tbody>

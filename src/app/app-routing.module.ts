@@ -9,6 +9,7 @@ import { CounsellorComponent } from './pages/counsellor/counsellor.component';
 import { CounsellorsComponent } from './pages/counsellors/counsellors.component';
 import { CouponComponent } from './pages/coupon/coupon.component';
 import { CouponsComponent } from './pages/coupons/coupons.component';
+import { EventComponent } from './pages/event/event.component';
 import { EventsComponent } from './pages/events/events.component';
 import { ListenerComponent } from './pages/listener/listener.component';
 import { ListenersComponent } from './pages/listeners/listeners.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: 'reports', component: ReportsComponent },
       { path: 'appointments', component: AppointmentsComponent },
       { path: 'events', component: EventsComponent },
+      { path: 'event', component: EventComponent },
       { path: '', redirectTo: 'clients', pathMatch: 'full' },
       { path: '**', redirectTo: 'clients' },
     ]

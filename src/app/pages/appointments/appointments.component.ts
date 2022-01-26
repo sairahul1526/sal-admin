@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiClientService  } from 'src/app/services/api-client.service';
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService  } from 'src/app/services/utility.service';
@@ -20,8 +20,10 @@ export class AppointmentsComponent implements OnInit {
   page = 1;
 
   loader = true;
+
+  refundAmount = 0;
   
-  constructor(private route: ActivatedRoute, private apiClient: ApiClientService, private utilityService: UtilityService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private apiClient: ApiClientService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -55,6 +57,23 @@ export class AppointmentsComponent implements OnInit {
       this.loader = false;
       this.response = response;
       if (response !== null && response.meta.status === '200') {
+      }
+    });
+  }
+
+  refundAppointment(appointmentID: string, refundAmount: string) {
+    this.loader = true;
+    this.utilityService.checkUserLogin();
+    this.apiClient.refundAppointment(appointmentID, refundAmount).subscribe((response: any) => {
+      if (response !== null && response.meta.status === '440') {
+        this.utilityService.refreshToken();
+        this.utilityService.wait(3000);
+        this.refundAppointment(appointmentID, refundAmount);
+        return;
+      }
+      this.loader = false;
+      if (response !== null) {
+        alert(response.meta.message)
       }
     });
   }

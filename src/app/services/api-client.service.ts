@@ -7,25 +7,30 @@ import { retry } from 'rxjs/operators';
 })
 export class ApiClientService {
 
-  // private REST_API_SERVER = 'http://localhost:5000';
-  private REST_API_SERVER = 'https://yvsdncrpod.execute-api.ap-south-1.amazonaws.com/prod';
+  private REST_API_SERVER = 'http://localhost:5000';
+  // private REST_API_SERVER = 'https://yvsdncrpod.execute-api.ap-south-1.amazonaws.com/prod';
 
   private LOGIN = '/admin/login';
   private REFRESH_TOKEN = '/admin/refresh-token';
 
   private CONTENT_CATEGORY = '/content-category';
   private APPOINTMENT = '/admin/appointment';
+  private APPOINTMENT_REFUND = '/admin/appointment/refund';
   private CLIENT = '/admin/client';
   private COUNSELLOR = '/admin/counsellor';
+  private EVENT = '/admin/event';
+  private EVENT_UPLOAD = '/admin/event/upload';
+  private EVENT_BOOK = '/admin/event/book';
   private LISTENER = '/admin/listener';
   private THERAPIST = '/admin/therapist';
   private CONTENT = '/admin/content';
-  private CONTENT_UPLOAD = '/content/upload';
+  private CONTENT_UPLOAD = '/admin/content/upload';
   private COUPON = '/admin/coupon';
   private QUOTE = '/admin/quote';
   private REPORT = '/admin/report';
   private NOTIFICATION = '/admin/notification';
   private MOOD = '/mood';
+  private TOPIC = '/topic';
 
   private retryCount = 3;
 
@@ -136,6 +141,10 @@ export class ApiClientService {
     return this.httpClient.get(this.REST_API_SERVER + this.MOOD).pipe(retry(this.retryCount));
   }
 
+  getTopics(): any {
+    return this.httpClient.get(this.REST_API_SERVER + this.TOPIC).pipe(retry(this.retryCount));
+  }
+
   getContentCateories(): any {
     return this.httpClient.get(this.REST_API_SERVER + this.CONTENT_CATEGORY).pipe(retry(this.retryCount));
   }
@@ -218,6 +227,66 @@ export class ApiClientService {
     .set('client_id', clientID)
     .set('counsellor_id', counsellorID);
     return this.httpClient.get(this.REST_API_SERVER + this.APPOINTMENT, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  refundAppointment(appointmentID: string, refundAmount: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('appointment_id', appointmentID)
+    .set('refund_amount', refundAmount);
+    return this.httpClient.put(this.REST_API_SERVER + this.APPOINTMENT_REFUND, {}, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getEvents(page: string, status: string, counsellorID: string, topicID: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('page', page)
+    .set('status', status)
+    .set('counsellor_id', counsellorID)
+    .set('topic_id', topicID);
+    return this.httpClient.get(this.REST_API_SERVER + this.EVENT, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getEvent(orderID: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('order_id', orderID);
+    return this.httpClient.get(this.REST_API_SERVER + this.EVENT, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  getEventsBooked(page: string, eventOrderID: string, userID: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('page', page)
+    .set('event_order_id', eventOrderID)
+    .set('user_id', userID);
+    return this.httpClient.get(this.REST_API_SERVER + this.EVENT_BOOK, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
+  uploadEvent(file: File): any {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post(this.REST_API_SERVER + this.EVENT_UPLOAD, formData);
+  }
+
+  updateEvent(orderID: string, counsellorID: string, title: string, description: string, photo: string, topicID: string,
+    date: string, time: string, duration: string, price: string, status: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('order_id', orderID);
+    return this.httpClient.put(this.REST_API_SERVER + this.EVENT, {
+      counsellor_id: counsellorID,
+      title: title,
+      description: description,
+      photo: photo,
+      topic_id: topicID,
+      date: date,
+      time: time,
+      duration: duration,
+      price: price,
+      status: status,
+    }, { params: params, headers: headers }).pipe(retry(this.retryCount));
   }
 
   getClients(page: string, name: string, phone: string, email: string, status: string): any {

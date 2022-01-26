@@ -1,1 +1,135 @@
-<p>events works!</p>
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">SAL events</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card">
+            <!-- Card header -->
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-7">
+                        <h3 class="mb-0">Filters</h3>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/events']" [queryParams]="{page: 1, status: status, counsellor_id: counsellorID, topic_id: selectedTopicID}">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Status</label>
+                            <form>
+                                <select [(ngModel)]="status" name="status" class="form-control" data-toggle="select">
+                                    <option value="1">To be Started</option>
+                                    <option value="2">Started</option>
+                                    <option value="3">Completed</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="form-control-label" for="example4cols1Input">Counsellor ID</label>
+                                <input [(ngModel)]="counsellorID" type="text" name="counsellorID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group" *ngIf="topicsResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Topic</label>
+                            <form>
+                                <select [(ngModel)]="selectedTopicID" name="topics" class="form-control" data-toggle="select">
+                                    <option *ngFor="let topic of topicsResponse.topics" [ngValue]="topic.id">{{ topic.topic }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th></th>
+                            <th>Title</th>
+                            <th>Counsellor</th>
+                            <th>Date &amp; Time</th>
+                            <th>Topic</th>
+                            <th>Price</th>
+                            <th>No of bookings</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="response != null">
+                        <tr *ngFor="let event of response.events" [routerLink]="['/event']" [queryParams]="{order_id: event.order_id}">
+                            <td>
+                                <img *ngIf="event.photo != ''" style="width: 20px; height: 20px;" [src]="response.media_url + event.photo" />
+                            </td>
+                            <td class="table-user">
+                                <b>{{ event.title }}</b>
+                            </td>
+                            <td>
+                                <b>{{ response.counsellors[event.counsellor_id].first_name }} {{ response.counsellors[event.counsellor_id].last_name }}</b>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ event.date | dateTransform: 'Do MMM' }} @ {{ convertSlot(event.time) | dateTransform: 'h:mm a' }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ response.topics[event.topic_id].topic }}</span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ event.price }}</span>
+                            </td>
+                            <td>
+                                <b>{{ response.events_booked_count[event.order_id] ? response.events_booked_count[event.order_id].ctn : 0 }}</b>
+                            </td>
+                            <td>
+                                <span *ngIf="event.status == '1'" class="text-muted">To be Started</span>
+                                <span *ngIf="event.status == '2'" class="text-muted">Started</span>
+                                <span *ngIf="event.status == '3'" class="text-muted">Completed</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item" *ngIf="page > 1">
+                            <a class="page-link" [routerLink]="['/events']" [queryParams]="{page: (page-1), status: status, counsellor_id: counsellorID, topic_id: selectedTopicID}">
+                                <fa-icon [icon]="faAngleLeft "></fa-icon>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngIf="response != null && response.events.length > 0">
+                            <a class="page-link" [routerLink]="['/events']" [queryParams]="{page: (page+1), status: status, counsellor_id: counsellorID, topic_id: selectedTopicID}">
+                                <fa-icon [icon]="faAngleRight "></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
+</div>

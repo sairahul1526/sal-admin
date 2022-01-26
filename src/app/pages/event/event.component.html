@@ -1,0 +1,175 @@
+<!-- Main content -->
+<div class="main-content" id="panel" style="margin-left:250px">
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">Update Event</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="card mb-4">
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Title</label>
+                            <input [(ngModel)]="title" type="text" name="title" class="form-control" id="example4cols1Input" placeholder="Healthy Boundaries">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea1">Description</label>
+                            <textarea [(ngModel)]="description" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Healthy Boundaries by Poonam"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Counsellor/Therapist ID</label>
+                            <input [(ngModel)]="counsellorID" type="text" name="counsellorID" class="form-control" id="example4cols1Input" placeholder="as8qwej">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Photo</label>
+                            <div class="custom-file">
+                                <input type="file" (change)="onPhotoSelected($event)" class="custom-file-input" id="photo" lang="en">
+                                <label class="custom-file-label" for="photo"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group" *ngIf="topicsResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Topic</label>
+                            <form>
+                                <select [(ngModel)]="selectedTopicID" name="topics" class="form-control" data-toggle="select">
+                                    <option *ngFor="let topic of topicsResponse.topics" [ngValue]="topic.id">{{ topic.topic }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Date</label>
+                            <input [(ngModel)]="date" type="date" name="date" class="form-control" id="example4cols1Input" placeholder="2021-10-21">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Time (0-23 slots)</label>
+                            <input [(ngModel)]="time" type="text" name="time" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Duration</label>
+                            <input [(ngModel)]="duration" type="text" name="duration" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="example4cols1Input">Price</label>
+                            <input [(ngModel)]="price" type="text" name="price" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row row-example justify-content-md-center">
+            <div class="col col-lg-3">
+                <button class="btn btn-primary" type="button" (click)="updateEvent()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid mt--6">
+        <div class="card" style="margin-top: 100px;">
+            <!-- Card header -->
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-7">
+                        <h3 class="mb-0">Filters</h3>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/event']" [queryParams]="{page: 1, order_id: orderID, user_id: userID}">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="form-control-label" for="example4cols1Input">User ID</label>
+                                <input [(ngModel)]="userID" type="text" name="userID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Booked at</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="response != null">
+                        <tr *ngFor="let event of response.events_booked">
+                            <td>
+                                <b>{{ response.users[event.user_id].first_name }} {{ response.users[event.user_id].last_name }}</b>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{ event.modified_at | dateTransform: 'Do MMM @ h:mm a' }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-4">
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item" *ngIf="page > 1">
+                            <a class="page-link" [routerLink]="['/event']" [queryParams]="{page: (page-1), order_id: orderID, user_id: userID}">
+                                <fa-icon [icon]="faAngleLeft "></fa-icon>
+                            </a>
+                        </li>
+                        <li class="page-item" *ngIf="response != null && response.events_booked.length > 0">
+                            <a class="page-link" [routerLink]="['/event']" [queryParams]="{page: (page+1), order_id: orderID, user_id: userID}">
+                                <fa-icon [icon]="faAngleRight "></fa-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
+</div>

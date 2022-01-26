@@ -38,11 +38,11 @@ export class ContentComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private apiClient: ApiClientService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
-    this.getMoods();
     this.route.queryParams.subscribe(params => {
       if (params.content_id !== undefined) {
         this.contentID = params.content_id;
       }
+      this.getMoods();
     });
   }
 

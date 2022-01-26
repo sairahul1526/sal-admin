@@ -7,8 +7,8 @@ import { retry } from 'rxjs/operators';
 })
 export class ApiClientService {
 
-  private REST_API_SERVER = 'http://localhost:5000';
-  // private REST_API_SERVER = 'https://yvsdncrpod.execute-api.ap-south-1.amazonaws.com/prod';
+  // private REST_API_SERVER = 'http://localhost:5000';
+  private REST_API_SERVER = 'https://yvsdncrpod.execute-api.ap-south-1.amazonaws.com/prod';
 
   private LOGIN = '/admin/login';
   private REFRESH_TOKEN = '/admin/refresh-token';

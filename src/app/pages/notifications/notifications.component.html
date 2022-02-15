@@ -6,7 +6,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Notifications</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">Notifications - {{ page }}</h6>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
                         <a [routerLink]="['/notification']" class="btn btn-sm btn-neutral">Add new Notification</a>
@@ -25,7 +25,7 @@
                         <h3 class="mb-0">Filters</h3>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/notifications']" [queryParams]="{page: 1, type: type, userType: userType}">Filter</button>
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/notifications']" [queryParams]="{page: 1, type: type, userType: userType, notification_type: notificationType}">Filter</button>
                     </div>
                 </div>
             </div>
@@ -33,6 +33,19 @@
             <div class="card-body">
                 <!-- Form groups used in grid -->
                 <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">NotificationType</label>
+                            <form>
+                                <select [(ngModel)]="notificationType" name="notificationType" class="form-control" data-toggle="select">
+                                    <option value="1">Promo</option>
+                                    <option value="2">Content</option>
+                                    <option value="3">Event</option>
+                                    <option value="4">Other</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-control-label" for="exampleFormControlTextarea2">Type</label>
@@ -66,6 +79,7 @@
                         <tr>
                             <th>Title</th>
                             <th>Body</th>
+                            <th>Notification Type</th>
                             <th>Sent to</th>
                             <th>Sent Date</th>
                         </tr>
@@ -77,6 +91,12 @@
                             </td>
                             <td>
                                 <span class="text-muted">{{ notification.body }}</span>
+                            </td>
+                            <td>
+                                <span *ngIf="notification.notification_type == '1'" class="text-muted">Promo</span>
+                                <span *ngIf="notification.notification_type == '2'" class="text-muted">Content</span>
+                                <span *ngIf="notification.notification_type == '3'" class="text-muted">Event</span>
+                                <span *ngIf="notification.notification_type == '4'" class="text-muted">Other</span>
                             </td>
                             <td>
                                 <span class="text-muted">
@@ -96,12 +116,12 @@
                 <nav aria-label="...">
                     <ul class="pagination justify-content-end mb-0">
                         <li class="page-item" *ngIf="page > 1">
-                            <a class="page-link" [routerLink]="['/notifications']" [queryParams]="{page: (page-1), type: type, userType: userType}">
+                            <a class="page-link" [routerLink]="['/notifications']" [queryParams]="{page: (page-1), type: type, userType: userType, notification_type: notificationType}">
                                 <fa-icon [icon]="faAngleLeft "></fa-icon>
                             </a>
                         </li>
                         <li class="page-item" *ngIf="response != null && response.notifications.length > 0">
-                            <a class="page-link" [routerLink]="['/notifications']" [queryParams]="{page: (page+1), type: type, userType: userType}">
+                            <a class="page-link" [routerLink]="['/notifications']" [queryParams]="{page: (page+1), type: type, userType: userType, notification_type: notificationType}">
                                 <fa-icon [icon]="faAngleRight "></fa-icon>
                             </a>
                         </li>

@@ -14,6 +14,7 @@ export class NotificationComponent implements OnInit {
   body: string = '';
   userIDs: string = '';
   type: string = '1';
+  notificationType: string = '1';
   userType: string = '3';
   
   loader = false;
@@ -26,7 +27,7 @@ export class NotificationComponent implements OnInit {
   postNotification() {
     this.loader = true;
     this.utilityService.checkUserLogin();
-    this.apiClient.postNotification(this.title, this.body, this.type == '1' ? '' : this.userIDs, this.type, this.userType).subscribe((response: any) => {
+    this.apiClient.postNotification(this.title, this.body, this.notificationType, this.type == '1' ? '' : this.userIDs, this.type, this.userType).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
         this.utilityService.refreshToken();
         this.utilityService.wait(3000);

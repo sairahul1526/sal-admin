@@ -6,7 +6,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">SAL events</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">SAL events - {{ page }}</h6>
                     </div>
                 </div>
             </div>
@@ -35,6 +35,7 @@
                             <label class="form-control-label" for="exampleFormControlTextarea2">Status</label>
                             <form>
                                 <select [(ngModel)]="status" name="status" class="form-control" data-toggle="select">
+                                    <option value="0">Waiting</option>
                                     <option value="1">To be Started</option>
                                     <option value="2">Started</option>
                                     <option value="3">Completed</option>
@@ -101,6 +102,7 @@
                                 <b>{{ response.events_booked_count[event.order_id] ? response.events_booked_count[event.order_id].ctn : 0 }}</b>
                             </td>
                             <td>
+                                <span *ngIf="event.status == '0'" class="text-muted">Waiting</span>
                                 <span *ngIf="event.status == '1'" class="text-muted">To be Started</span>
                                 <span *ngIf="event.status == '2'" class="text-muted">Started</span>
                                 <span *ngIf="event.status == '3'" class="text-muted">Completed</span>

@@ -6,7 +6,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
-                        <h6 class="h2 text-white d-inline-block mb-0">Appointments</h6>
+                        <h6 class="h2 text-white d-inline-block mb-0">Appointments - {{ page }}</h6>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,8 @@
                                     <option value="2">Started</option>
                                     <option value="3">Completed</option>
                                     <option value="4">Cancelled</option>
-                                    <option value="5">No Show</option>
+                                    <option value="5">Refunded</option>
+                                    <option value="6">No Show</option>
                                 </select>
                             </form>
                         </div>
@@ -67,11 +68,13 @@
                 <table class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
+                            <th>ID</th>
                             <th>Client</th>
                             <th>Counsellor</th>
                             <th>Date &amp; Time</th>
                             <th>Times rescheduled</th>
                             <th>Status</th>
+                            <th>Paid Amount</th>
                             <th>Remarks</th>
                             <th>Refund</th>
                         </tr>
@@ -79,13 +82,16 @@
                     <tbody *ngIf="response != null">
                         <tr *ngFor="let appointment of response.appointments">
                             <td class="table-user">
-                                <b>{{ response.clients[appointment.client_id].first_name }} {{ response.clients[appointment.client_id].last_name }}</b>
+                                <b>{{ appointment.appointment_id }}</b>
+                            </td>
+                            <td class="table-user">
+                                <b>{{ response.clients[appointment.client_id].first_name }} {{ response.clients[appointment.client_id].last_name }} - ({{ appointment.client_id }})</b>
                             </td>
                             <td>
                                 <b>{{ response.counsellors[appointment.counsellor_id].first_name }} {{ response.counsellors[appointment.counsellor_id].last_name }}</b>
                             </td>
                             <td>
-                                <span class="text-muted">{{ appointment.date | dateTransform: 'Do MMM' }} @ {{ convertSlot(appointment.time) | dateTransform: 'h:mm a' }}</span>
+                                <span class="text-muted" [swal]="{ title: 'Client Started At : ' + (appointment.client_started_at |  dateTransform: 'Do MMM @ h:mm a') + '\nClient Ended At : ' + (appointment.client_ended_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Started At : ' + (appointment.started_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Ended At : ' + (appointment.ended_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Comments : ' + appointment.commentforclient }">{{ appointment.date | dateTransform: 'Do MMM' }} @ {{ convertSlot(appointment.time) | dateTransform: 'h:mm a' }}</span>
                             </td>
                             <td>
                                 <b>{{ appointment.times_rescheduled }}</b>
@@ -95,13 +101,17 @@
                                 <span *ngIf="appointment.status == '2'" class="text-muted">Started</span>
                                 <span *ngIf="appointment.status == '3'" class="text-muted">Completed</span>
                                 <span *ngIf="appointment.status == '4'" class="text-muted">Cancelled</span>
-                                <span *ngIf="appointment.status == '5'" class="text-muted">No Show</span>
+                                <span *ngIf="appointment.status == '5'" class="text-muted">Refunded</span>
+                                <span *ngIf="appointment.status == '6'" class="text-muted">No Show</span>
+                            </td>
+                            <td>
+                                <b>₹{{ response.orders[appointment.order_id].paid_amount }} ({{ response.orders[appointment.order_id].slots_bought }})</b>
                             </td>
                             <td>
                                 <span class="text-muted">{{ appointment.status == '4' ? appointment.cancellation_reason : appointment.rating_comment }}</span>
                             </td>
                             <td class="table-actions">
-                                <button  type="button" class="btn btn-primary btn-sm"  [swal]="{ title: 'Refund for appointment', input: 'text', showCancelButton: true}" (confirm)="refundAppointment(appointment.appointment_id, $event)">Go</button>
+                                <button  type="button" class="btn btn-primary btn-sm"  [swal]="{ title: 'Refund for appointment', text: 'Refunded amount : ' + (response.refunds[response.orders[appointment.order_id].invoice_id] ? response.refunds[response.orders[appointment.order_id].invoice_id].total_refunded_amount : '0'), input: 'text', showCancelButton: true}" (confirm)="refundAppointment(appointment.appointment_id, $event)">Go</button>
                             </td>
                         </tr>
                     </tbody>

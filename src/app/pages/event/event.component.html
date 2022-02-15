@@ -50,12 +50,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-4">
+                    <div class="col-sm-6 col-md-2">
                         <div class="form-group" *ngIf="topicsResponse != null">
                             <label class="form-control-label" for="exampleFormControlTextarea2">Topic</label>
                             <form>
                                 <select [(ngModel)]="selectedTopicID" name="topics" class="form-control" data-toggle="select">
                                     <option *ngFor="let topic of topicsResponse.topics" [ngValue]="topic.id">{{ topic.topic }}</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                        <div class="form-group" *ngIf="topicsResponse != null">
+                            <label class="form-control-label" for="exampleFormControlTextarea2">Status</label>
+                            <form>
+                                <select [(ngModel)]="status" name="status" class="form-control" data-toggle="select">
+                                    <option value="0">Waiting</option>
+                                    <option value="1">To be Started</option>
+                                    <option value="2">Started</option>
+                                    <option value="3">Completed</option>
                                 </select>
                             </form>
                         </div>

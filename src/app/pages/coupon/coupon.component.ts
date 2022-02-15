@@ -72,8 +72,8 @@ export class CouponComponent implements OnInit {
             this.couponApplicableFor = 4;
             this.personID = coupon.therapist_id;
           }
-          this.startBy = moment.utc(coupon.start_by).local().format('YYYY-MM-DD');
-          this.endBy = moment.utc(coupon.end_by).local().format('YYYY-MM-DD');
+          this.startBy = moment.utc(coupon.start_by).local().format('YYYY-MM-DDTHH:mm');
+          this.endBy = moment.utc(coupon.end_by).local().format('YYYY-MM-DDTHH:mm');
           this.status = coupon.status;
         }
       }
@@ -99,7 +99,7 @@ export class CouponComponent implements OnInit {
       default:
         break;
     }
-    this.apiClient.postCoupon(this.promoCode, clienID, counsellorID, therapistID, this.discount.toString(), this.minimumOrderValue.toString(), this.maximumDiscountValue.toString(), this.validForOrder.toString(), this.type.toString(), this.orderType.toString(), moment.utc(this.startBy).format(), moment.utc(this.endBy).format()).subscribe((response: any) => {
+    this.apiClient.postCoupon(this.promoCode, clienID, counsellorID, therapistID, this.discount.toString(), this.minimumOrderValue.toString(), this.maximumDiscountValue.toString(), this.validForOrder.toString(), this.type.toString(), this.orderType.toString(), moment.utc(this.startBy).add(-330, 'minutes').format(), moment.utc(this.endBy).add(-330, 'minutes').format()).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
         this.utilityService.refreshToken();
         this.utilityService.wait(3000);
@@ -132,7 +132,7 @@ export class CouponComponent implements OnInit {
       default:
         break;
     }
-    this.apiClient.updateCoupon(this.couponID, this.promoCode, clienID, counsellorID, therapistID, this.discount.toString(), this.minimumOrderValue.toString(), this.maximumDiscountValue.toString(), this.validForOrder.toString(), this.type.toString(), this.orderType.toString(), moment.utc(this.startBy).format(), moment.utc(this.endBy).format(), this.status).subscribe((response: any) => {
+    this.apiClient.updateCoupon(this.couponID, this.promoCode, clienID, counsellorID, therapistID, this.discount.toString(), this.minimumOrderValue.toString(), this.maximumDiscountValue.toString(), this.validForOrder.toString(), this.type.toString(), this.orderType.toString(), moment.utc(this.startBy).add(-330, 'minutes').format(), moment.utc(this.endBy).add(-330, 'minutes').format(), this.status).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
         this.utilityService.refreshToken();
         this.utilityService.wait(3000);

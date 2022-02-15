@@ -17,6 +17,7 @@ export class NotificationsComponent implements OnInit {
   response: any;
   page = 1;
   type: string = '';
+  notificationType: string = '';
   userType: string = '';
   
   loader = true;
@@ -31,6 +32,9 @@ export class NotificationsComponent implements OnInit {
       if (params.type !== undefined) {
         this.type = params.type;
       }
+      if (params.notification_type !== undefined) {
+        this.notificationType = params.notification_type;
+      }
       if (params.user_type !== undefined) {
         this.userType = params.user_type;
       }
@@ -43,7 +47,7 @@ export class NotificationsComponent implements OnInit {
     this.loader = true;
     this.utilityService.checkUserLogin();
     this.page = page;
-    this.apiClient.getNotifications(page.toString(), this.type, this.userType).subscribe((response: any) => {
+    this.apiClient.getNotifications(page.toString(), this.type, this.userType, this.notificationType).subscribe((response: any) => {
       if (response !== null && response.meta.status === '440') {
         this.utilityService.refreshToken();
         this.utilityService.wait(3000);

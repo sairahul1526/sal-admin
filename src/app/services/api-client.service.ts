@@ -454,20 +454,22 @@ export class ApiClientService {
     }, { params: params, headers: headers }).pipe(retry(this.retryCount));
   }
 
-  getNotifications(page: string, type: string, userType: string): any {
+  getNotifications(page: string, type: string, userType: string, notificationType: string): any {
     const headers = this.getHeaders();
     const params = new HttpParams()
     .set('page', page)
     .set('type', type)
     .set('user_type', userType)
+    .set('notification_type', notificationType)
     return this.httpClient.get(this.REST_API_SERVER + this.NOTIFICATION, { params: params, headers: headers }).pipe(retry(this.retryCount));
   }
 
-  postNotification(title: string, body: string, userIDs: string, type: string, userType: string): any {
+  postNotification(title: string, body: string, notificationType: string, userIDs: string, type: string, userType: string): any {
     const headers = this.getHeaders();
     return this.httpClient.post(this.REST_API_SERVER + this.NOTIFICATION, {
       title: title,
       body: body,
+      notification_type: notificationType,
       user_ids: userIDs,
       type: type,
       user_type: userType,

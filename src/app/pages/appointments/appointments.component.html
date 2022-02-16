@@ -38,8 +38,8 @@
                                     <option value="1">To be Started</option>
                                     <option value="2">Started</option>
                                     <option value="3">Completed</option>
-                                    <option value="4">Cancelled</option>
-                                    <option value="5">Refunded</option>
+                                    <option value="4">User Cancelled</option>
+                                    <option value="5">Admin Cancelled</option>
                                     <option value="6">No Show</option>
                                 </select>
                             </form>
@@ -100,8 +100,8 @@
                                 <span *ngIf="appointment.status == '1'" class="text-muted">To be Started</span>
                                 <span *ngIf="appointment.status == '2'" class="text-muted">Started</span>
                                 <span *ngIf="appointment.status == '3'" class="text-muted">Completed</span>
-                                <span *ngIf="appointment.status == '4'" class="text-muted">Cancelled</span>
-                                <span *ngIf="appointment.status == '5'" class="text-muted">Refunded</span>
+                                <span *ngIf="appointment.status == '4'" class="text-muted">User Cancelled</span>
+                                <span *ngIf="appointment.status == '5'" class="text-muted">Admin Cancelled</span>
                                 <span *ngIf="appointment.status == '6'" class="text-muted">No Show</span>
                             </td>
                             <td>

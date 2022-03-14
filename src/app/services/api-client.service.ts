@@ -7,8 +7,8 @@ import { retry } from 'rxjs/operators';
 })
 export class ApiClientService {
 
-  // private REST_API_SERVER = 'http://localhost:5000';
-  private REST_API_SERVER = 'https://yvsdncrpod.execute-api.ap-south-1.amazonaws.com/prod';
+  private REST_API_SERVER = 'http://localhost:5000';
+  // private REST_API_SERVER = 'https://yvsdncrpod.execute-api.ap-south-1.amazonaws.com/prod';
 
   private LOGIN = '/admin/login';
   private REFRESH_TOKEN = '/admin/refresh-token';
@@ -219,13 +219,14 @@ export class ApiClientService {
     return this.httpClient.post(this.REST_API_SERVER + this.CONTENT_UPLOAD, formData);
   }
 
-  getAppointments(page: string, state: string, clientID: string, counsellorID: string): any {
+  getAppointments(page: string, state: string, clientID: string, counsellorID: string, appointmentID: string): any {
     const headers = this.getHeaders();
     const params = new HttpParams()
     .set('page', page)
     .set('state', state)
     .set('client_id', clientID)
-    .set('counsellor_id', counsellorID);
+    .set('counsellor_id', counsellorID)
+    .set('appointment_id', appointmentID);
     return this.httpClient.get(this.REST_API_SERVER + this.APPOINTMENT, { params: params, headers: headers }).pipe(retry(this.retryCount));
   }
 

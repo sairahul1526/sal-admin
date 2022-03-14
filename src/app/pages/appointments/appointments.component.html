@@ -22,7 +22,7 @@
                         <h3 class="mb-0">Filters</h3>
                     </div>
                     <div class="col-lg-6 col-5 text-right">
-                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/appointments']" [queryParams]="{page: 1, state: state, client_id: clientID, counsellor_id: counsellorID}">Filter</button>
+                        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/appointments']" [queryParams]="{page: 1, state: state, client_id: clientID, counsellor_id: counsellorID, appointment_id: appointmentID}">Filter</button>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="card-body">
                 <!-- Form groups used in grid -->
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label class="form-control-label" for="exampleFormControlTextarea2">State</label>
                             <form>
@@ -39,13 +39,14 @@
                                     <option value="2">Started</option>
                                     <option value="3">Completed</option>
                                     <option value="4">User Cancelled</option>
-                                    <option value="5">Admin Cancelled</option>
-                                    <option value="6">No Show</option>
+                                    <option value="5">Counsellor Cancelled</option>
+                                    <option value="6">Admin Cancelled</option>
+                                    <option value="7">No Show</option>
                                 </select>
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <div class="form-group">
                                 <label class="form-control-label" for="example4cols1Input">Client ID</label>
@@ -53,11 +54,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <div class="form-group">
                                 <label class="form-control-label" for="example4cols1Input">Counsellor ID</label>
                                 <input [(ngModel)]="counsellorID" type="text" name="counsellorID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label class="form-control-label" for="example4cols1Input">Appointment ID</label>
+                                <input [(ngModel)]="appointmentID" type="text" name="appointmentID" class="form-control" id="example4cols1Input" placeholder="8ahm0qk9">
                             </div>
                         </div>
                     </div>
@@ -88,10 +97,10 @@
                                 <b>{{ response.clients[appointment.client_id].first_name }} {{ response.clients[appointment.client_id].last_name }} - ({{ appointment.client_id }})</b>
                             </td>
                             <td>
-                                <b>{{ response.counsellors[appointment.counsellor_id].first_name }} {{ response.counsellors[appointment.counsellor_id].last_name }}</b>
+                                <b>{{ response.counsellors[appointment.counsellor_id].first_name }} {{ response.counsellors[appointment.counsellor_id].last_name }} - ({{ appointment.counsellor_id }})</b>
                             </td>
                             <td>
-                                <span class="text-muted" [swal]="{ title: 'Client Started At : ' + (appointment.client_started_at |  dateTransform: 'Do MMM @ h:mm a') + '\nClient Ended At : ' + (appointment.client_ended_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Started At : ' + (appointment.started_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Ended At : ' + (appointment.ended_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Comments : ' + appointment.commentforclient }">{{ appointment.date | dateTransform: 'Do MMM' }} @ {{ convertSlot(appointment.time) | dateTransform: 'h:mm a' }}</span>
+                                <span class="text-muted" [swal]="{ title: 'Client Started At : ' + (appointment.client_started_at |  dateTransform: 'Do MMM @ h:mm a') + '\nClient Ended At : ' + (appointment.client_ended_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Started At : ' + (appointment.started_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Ended At : ' + (appointment.ended_at |  dateTransform: 'Do MMM @ h:mm a') + '\nCounsellor Attachment : <a href=' + response.media_url + appointment.attachments  + '>Attchement</a>\nCounsellor Comments : ' + appointment.commentforclient }">{{ appointment.date | dateTransform: 'Do MMM' }} @ {{ convertSlot(appointment.time) | dateTransform: 'h:mm a' }}</span>
                             </td>
                             <td>
                                 <b>{{ appointment.times_rescheduled }}</b>
@@ -101,8 +110,9 @@
                                 <span *ngIf="appointment.status == '2'" class="text-muted">Started</span>
                                 <span *ngIf="appointment.status == '3'" class="text-muted">Completed</span>
                                 <span *ngIf="appointment.status == '4'" class="text-muted">User Cancelled</span>
-                                <span *ngIf="appointment.status == '5'" class="text-muted">Admin Cancelled</span>
-                                <span *ngIf="appointment.status == '6'" class="text-muted">No Show</span>
+                                <span *ngIf="appointment.status == '5'" class="text-muted">Counsellor Cancelled</span>
+                                <span *ngIf="appointment.status == '6'" class="text-muted">Admin Cancelled</span>
+                                <span *ngIf="appointment.status == '7'" class="text-muted">No Show</span>
                             </td>
                             <td>
                                 <b>₹{{ response.orders[appointment.order_id].paid_amount }} ({{ response.orders[appointment.order_id].slots_bought }})</b>
@@ -122,12 +132,12 @@
                 <nav aria-label="...">
                     <ul class="pagination justify-content-end mb-0">
                         <li class="page-item" *ngIf="page > 1">
-                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page-1), state: state, client_id: clientID, counsellor_id: counsellorID}">
+                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page-1), state: state, client_id: clientID, counsellor_id: counsellorID, appointment_id: appointmentID}">
                                 <fa-icon [icon]="faAngleLeft "></fa-icon>
                             </a>
                         </li>
                         <li class="page-item" *ngIf="response != null && response.appointments.length > 0">
-                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page+1), state: state, client_id: clientID, counsellor_id: counsellorID}">
+                            <a class="page-link" [routerLink]="['/appointments']" [queryParams]="{page: (page+1), state: state, client_id: clientID, counsellor_id: counsellorID, appointment_id: appointmentID}">
                                 <fa-icon [icon]="faAngleRight "></fa-icon>
                             </a>
                         </li>

@@ -39,6 +39,7 @@
                                     <option value="1">To be Started</option>
                                     <option value="2">Started</option>
                                     <option value="3">Completed</option>
+                                    <option value="4">No Show</option>
                                 </select>
                             </form>
                         </div>
@@ -87,7 +88,7 @@
                                 <b>{{ event.title }}</b>
                             </td>
                             <td>
-                                <b>{{ response.counsellors[event.counsellor_id].first_name }} {{ response.counsellors[event.counsellor_id].last_name }}</b>
+                                <b>{{ response.counsellors[event.counsellor_id].first_name }} {{ response.counsellors[event.counsellor_id].last_name }} - ({{ event.counsellor_id }})</b>
                             </td>
                             <td>
                                 <span class="text-muted">{{ event.date | dateTransform: 'Do MMM' }} @ {{ convertSlot(event.time) | dateTransform: 'h:mm a' }}</span>

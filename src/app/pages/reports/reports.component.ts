@@ -15,10 +15,38 @@ export class ReportsComponent implements OnInit {
   reports = [
     {
       id: '1',
-      title: 'Quotes Reports'
+      title: 'Appointment Reports'
     },
     {
       id: '2',
+      title: 'Sales Reports'
+    },
+    {
+      id: '3',
+      title: 'Booking Report'
+    },
+    {
+      id: '4',
+      title: 'SAL Cafe Report'
+    },
+    {
+      id: '5',
+      title: 'Finance Report'
+    },
+    {
+      id: '6',
+      title: 'Payout Report'
+    },
+    {
+      id: '7',
+      title: 'Promo Code Report'
+    },
+    {
+      id: '8',
+      title: 'Push Notification Report'
+    },
+    {
+      id: '10',
       title: 'Onboarding Report'
     }
   ];

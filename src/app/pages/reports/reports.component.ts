@@ -51,13 +51,33 @@ export class ReportsComponent implements OnInit {
     }
   ];
   
+  response: any;
+  loader = false;
+
   constructor(private apiClient: ApiClientService, private utilityService: UtilityService) { }
 
   ngOnInit(): void {
   }
 
-  downloadReport() {
+
+  getReports() {
+    this.loader = true;
     this.utilityService.checkUserLogin();
+    this.apiClient.getReports(this.selectedReportID, this.startBy, this.endBy).subscribe((response: any) => {
+      if (response !== null && response.meta.status === '440') {
+        this.utilityService.refreshToken();
+        this.utilityService.wait(3000);
+        this.getReports();
+        return;
+      }
+      this.loader = false;
+      this.response = response;
+      if (response !== null && response.meta.status === '200') {
+      }
+    });
+  }
+
+  downloadReport() {
     window.open(this.apiClient.getReportURL(this.selectedReportID, this.startBy, this.endBy), "_blank");
   }
 }

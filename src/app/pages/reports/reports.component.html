@@ -48,6 +48,7 @@
                         <div class="form-group">
                             <label class="form-control-label" for="exampleFormControlTextarea2"></label>
                             <div class="text-right">
+                                <button class="btn btn-primary" type="button" (click)="getReports()">Show Report</button>
                                 <button class="btn btn-primary" type="button" (click)="downloadReport()">Download Report</button>
                             </div>
                         </div>
@@ -55,5 +56,27 @@
                 </div>
             </div>
         </div>
+
+        <!-- Light table -->
+        <div class="table-responsive" *ngIf="response != null">
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th *ngFor="let heading of response.headings">{{ heading }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let column of response.data">
+                        <td *ngFor="let data of column">
+                            <span class="text-muted">{{ data }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>
+
+<div class="loader-div" *ngIf="loader">
+    <div class="loader"></div>
 </div>

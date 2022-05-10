@@ -153,6 +153,16 @@ export class ApiClientService {
     return this.REST_API_SERVER + this.REPORT + "?id="+id+"&start_by="+startBy+"&end_by="+endBy+"&access_token="+sessionStorage.getItem('access_token');
   }
 
+  getReports(id: string, startBy: string, endBy: string): any {
+    const headers = this.getHeaders();
+    const params = new HttpParams()
+    .set('id', id)
+    .set('start_by', startBy)
+    .set('end_by', endBy)
+    .set('type', 'json');
+    return this.httpClient.get(this.REST_API_SERVER + this.REPORT, { params: params, headers: headers }).pipe(retry(this.retryCount));
+  }
+
   getContents(page: string, moodID: string, categoryID: string, type: string, counsellorID: string, training: string, status: string): any {
     const headers = this.getHeaders();
     const params = new HttpParams()

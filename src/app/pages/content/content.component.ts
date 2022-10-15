@@ -119,6 +119,8 @@ export class ContentComponent implements OnInit {
       this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.router.navigate(['/contents']);
+      } else {
+        alert(response.meta.message);
       }
     });
   }
@@ -136,6 +138,8 @@ export class ContentComponent implements OnInit {
       this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.router.navigate(['/contents']);
+      } else {
+        alert(response.meta.message);
       }
     });
   }
@@ -156,6 +160,8 @@ export class ContentComponent implements OnInit {
       this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.photo = response.file;
+      } else {
+        alert(response.meta.message);
       }
     });
   }
@@ -176,6 +182,8 @@ export class ContentComponent implements OnInit {
       this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.backgroundPhoto = response.file;
+      } else {
+        alert(response.meta.message);
       }
     });
   }
@@ -196,6 +204,8 @@ export class ContentComponent implements OnInit {
       this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.content = response.file;
+      } else {
+        alert(response.meta.message);
       }
     });
   }

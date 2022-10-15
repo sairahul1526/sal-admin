@@ -25,6 +25,9 @@ export class NotificationComponent implements OnInit {
   }
 
   postNotification() {
+    if (this.title.length == 0 || this.body.length == 0) {
+      return
+    }
     this.loader = true;
     this.utilityService.checkUserLogin();
     this.apiClient.postNotification(this.title, this.body, this.notificationType, this.type == '1' ? '' : this.userIDs, this.type, this.userType).subscribe((response: any) => {
@@ -37,6 +40,8 @@ export class NotificationComponent implements OnInit {
       this.loader = false;
       if (response !== null && response.meta.status === '200') {
         this.router.navigate(['/notifications']);
+      } else {
+        alert(response.meta.message);
       }
     });
   }
